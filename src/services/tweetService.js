@@ -1,7 +1,9 @@
 
 export const tweetService  = {
     getRecentTweet, 
-    favTweet
+    postfavTweet,
+    getFavorites,
+    deletefavTweet
 }
 
 export const apiConfig = {
@@ -14,12 +16,48 @@ function getRecentTweet() {
         method: 'GET',
         headers: {"Content-Type": "application/json"}
     }
-  return fetch(`${apiConfig.endpointURL}/recent_tweets`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/recent_tweets`, requestOption).then(res=> {
         //            console.log(res.json());
                     return res.json();
                 })
 }
 
-function favTweet(id) {
+function getFavorites(id) {
 
+    const requestOption = {
+        method: 'GET',
+        headers: {"Content-Type": "application/json"}
+    }
+    return fetch(`${apiConfig.endpointURL}/fav_list`, requestOption).then(res=> {
+        //            console.log(res.json());
+                    return res.json();
+                })
+}
+
+function postfavTweet(id) {
+    const requestOption = {
+        method: 'POST',
+        body: JSON.stringify({
+            "tweet_id": id
+        }),
+        headers: {"Content-Type": "application/json"}
+    }
+    return fetch(`${apiConfig.endpointURL}/post_favorites`, requestOption).then(res=> {
+        //            console.log(res.json());
+                    return res.json();
+                })
+}
+
+function deletefavTweet(id) {
+    const requestOption = {
+        method: 'POST',
+        body: JSON.stringify({
+            "tweet_id": id
+        }),
+        headers: {"Content-Type": "application/json"}
+    }
+    return fetch(`${apiConfig.endpointURL}/post_favoritesDestroy`, requestOption).then(res=> {
+        //            console.log(res.json());
+                    return res.json();
+                })
 }
