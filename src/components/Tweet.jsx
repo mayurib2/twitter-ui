@@ -51,9 +51,20 @@ class Tweet extends PureComponent {
         this.setState({ checked: !this.state.checked });
     }
 
+    //Sneha Patil
+    //DestroyTweet api will be called with the tweet id
     deleteTweet(id) {
         console.log("called delete", id);
-
+        const url="http://localhost:3001/destroyTweet" + "/" + id;
+        console.log(url);
+        fetch(url, {
+            method: 'Post',
+            headers: {
+                'Content-Type': 'application/json'
+              }
+        }).then(response => response.json().then(tweets =>{ 
+            console.log(tweets); 
+        }));
     }
 
     render() {
@@ -74,8 +85,9 @@ class Tweet extends PureComponent {
                     <Card.Footer>
                         <CustomLIkeHeart checked={checked} onClick={this.onClick} style={{margin:'10px'}}></CustomLIkeHeart>
                         <a style={{margin:'10px'}}>{this.state.favCount}</a>
+                        <button value="Delete" onClick={event => this.deleteTweet(tweet.id_str)}><i class="fa fa-trash-o" style={{"font-size":"30px","color":"red"}}></i></button> 
                     </Card.Footer>
-                    {/* <button value="Delete" onClick={event => this.deleteTweet(tweet.id)}>  Delete Tweet </button> */}
+                    {/* { <button value="Delete" onClick={event => this.deleteTweet(tweet.id_str)}>  Delete Tweet <i class="fa fa-trash-o" ></i></button> } */}
                 </Card>
             </Col>
 
