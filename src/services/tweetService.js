@@ -1,9 +1,11 @@
+import axios from "axios";
 
-export const tweetService  = {
-    getRecentTweet, 
+export const tweetService = {
+    getRecentTweet,
     postfavTweet,
     getFavorites,
-    deletefavTweet
+    deletefavTweet,
+    postTweet
 }
 
 export const apiConfig = {
@@ -16,10 +18,10 @@ function getRecentTweet() {
         method: 'GET',
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/recent_tweets`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/recent_tweets`, requestOption).then(res => {
         //            console.log(res.json());
-                    return res.json();
-                })
+        return res.json();
+    })
 }
 
 function getFavorites(id) {
@@ -28,10 +30,10 @@ function getFavorites(id) {
         method: 'GET',
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/fav_list`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/fav_list`, requestOption).then(res => {
         //            console.log(res.json());
-                    return res.json();
-                })
+        return res.json();
+    })
 }
 
 function postfavTweet(id) {
@@ -42,10 +44,10 @@ function postfavTweet(id) {
         }),
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/post_favorites`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/post_favorites`, requestOption).then(res => {
         //            console.log(res.json());
-                    return res.json();
-                })
+        return res.json();
+    })
 }
 
 function deletefavTweet(id) {
@@ -56,8 +58,16 @@ function deletefavTweet(id) {
         }),
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/post_favoritesDestroy`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/post_favoritesDestroy`, requestOption).then(res => {
         //            console.log(res.json());
-                    return res.json();
-                })
+        return res.json();
+    })
+}
+
+function postTweet(tweet_text) {
+    console.log("Inside tweetService postTweet ", tweet_text);
+    return axios.post(`${apiConfig.endpointURL}/post_tweet`,
+        {tweet_text: tweet_text},
+        {headers: {'Content-Type': 'application/json'}}
+    );
 }
