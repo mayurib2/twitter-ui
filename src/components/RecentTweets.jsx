@@ -3,7 +3,7 @@ import {Col, Form, Button, FormControl} from "react-bootstrap";
 import Tweet from './Tweet';
 import { tweetService } from '../services/tweetService';
 
-
+//Rashmi Sarode
 class RecentTweets extends PureComponent {
     constructor(props) {
         super(props)
@@ -20,12 +20,14 @@ class RecentTweets extends PureComponent {
         tweetService.getRecentTweet()
         .then(json=> {
             console.log(json);
-            this.setState({
-                tweets: json
-            });
+            if(Array.isArray(json)) {
+                this.setState({
+                    tweets: json
+                });    
+            }
         })
         .catch(reason=> {
-            //console.log(reason);
+            console.log("Failed to fetch tweets from server, reason is : ", reason);
         });
     }
 
@@ -67,12 +69,12 @@ class RecentTweets extends PureComponent {
             
             <div>
                 <Col md={{ span: 6, offset: 3 }}>
-                <Form style={{"margin-left": "20px"}} inline>
+                <Form style={{"marginLeft": "20px"}} inline>
                     <FormControl type="text" placeholder="Search" id="searchquery" onChange={this.handleChange} className=" mr-sm-2" />
                     <Button type="submit" onClick={this.onClick}>Search</Button>
                 </Form>
                 </Col>
-                {
+                { this.state.tweets && 
                     this.state.tweets.map(tweet=> {
                         return (<Tweet tweet={tweet} key={tweet.id}/>);
                     })

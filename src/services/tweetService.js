@@ -14,6 +14,8 @@ export const apiConfig = {
     endpointURL: "http://localhost:3001"
 }
 
+
+//Rashmi Sarode
 function getRecentTweet() {
 
     const requestOption = {
@@ -26,6 +28,7 @@ function getRecentTweet() {
     })
 }
 
+//Rashmi Sarode
 function getFavorites(id) {
 
     const requestOption = {
@@ -38,6 +41,7 @@ function getFavorites(id) {
     })
 }
 
+//Rashmi Sarode
 function postfavTweet(id) {
     const requestOption = {
         method: 'POST',
@@ -52,6 +56,7 @@ function postfavTweet(id) {
     })
 }
 
+//Rashmi Sarode
 function deletefavTweet(id) {
     const requestOption = {
         method: 'POST',
@@ -77,12 +82,9 @@ function postTweet(tweet_text) {
 function postRetweet(id) {
     const requestOption = {
         method: 'POST',
-        body: JSON.stringify({
-            "tweet_id": id
-        }),
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/retweet`, requestOption).then(res=> {
+    return fetch(`${apiConfig.endpointURL}/retweet/${id}`, requestOption).then(res=> {
                     return res.json();
                 })
 }
@@ -90,12 +92,9 @@ function postRetweet(id) {
 function unRetweet(id) {
     const requestOption = {
         method: 'POST',
-        body: JSON.stringify({
-            "tweet_id": id
-        }),
         headers: {"Content-Type": "application/json"}
     }
-    return fetch(`${apiConfig.endpointURL}/unretweet`, requestOption).then(res => {
+    return fetch(`${apiConfig.endpointURL}/unretweet/${id}`, requestOption).then(res => {
         //            console.log(res.json());
         return res.json();
     })

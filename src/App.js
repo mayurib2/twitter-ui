@@ -8,7 +8,7 @@ import PostTweet from "./components/PostTweet";
 function App() {
     return (
         <div className="App container">
-            <Navbar style={{"background-color": "lightblue"}}>
+            <Navbar style={{"backgroundColor": "lightblue"}}>
                 <Navbar.Brand>Twitter</Navbar.Brand>
             </Navbar>
             <PostTweet/>

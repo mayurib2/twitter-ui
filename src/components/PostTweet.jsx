@@ -22,7 +22,7 @@ class PostTweet extends PureComponent {
         return (
             <div>
                 <Col md={{span: 6, offset: 3}}>
-                    <Form style={{"margin-left": "20px", "margin-bottom": "20px", "margin-top": "20px"}} inline>
+                    <Form style={{"marginLeft": "20px", "marginBottom": "20px", "marginTop": "20px"}} inline>
                         <FormControl type="text" placeholder="Write tweet here" id="tweetText"
                                      onChange={event => this.setState({tweet_text: event.target.value})}
                                      className=" mr-sm-2"/>
