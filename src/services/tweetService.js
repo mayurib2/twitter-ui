@@ -5,7 +5,9 @@ export const tweetService = {
     postfavTweet,
     getFavorites,
     deletefavTweet,
-    postTweet
+    postTweet,
+    postRetweet,
+    unRetweet
 }
 
 export const apiConfig = {
@@ -70,4 +72,31 @@ function postTweet(tweet_text) {
         {tweet_text: tweet_text},
         {headers: {'Content-Type': 'application/json'}}
     );
+}
+
+function postRetweet(id) {
+    const requestOption = {
+        method: 'POST',
+        body: JSON.stringify({
+            "tweet_id": id
+        }),
+        headers: {"Content-Type": "application/json"}
+    }
+    return fetch(`${apiConfig.endpointURL}/retweet`, requestOption).then(res=> {
+                    return res.json();
+                })
+}
+
+function unRetweet(id) {
+    const requestOption = {
+        method: 'POST',
+        body: JSON.stringify({
+            "tweet_id": id
+        }),
+        headers: {"Content-Type": "application/json"}
+    }
+    return fetch(`${apiConfig.endpointURL}/unretweet`, requestOption).then(res => {
+        //            console.log(res.json());
+        return res.json();
+    })
 }

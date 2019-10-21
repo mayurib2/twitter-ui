@@ -8,14 +8,15 @@ const tweetCardStyle = {
     margin: '20px'
 }
 
-
 class Tweet extends PureComponent {
     constructor(props) {
         super(props)
 
         this.state = {
             checked: false,
-            favCount: this.props.tweet.favorite_count
+            favCount: this.props.tweet.favorite_count,
+            retweeted: false,
+            color: 'red'
         }
     }
 
@@ -67,6 +68,39 @@ class Tweet extends PureComponent {
         }));
     }
 
+    retweet = () => {
+    
+        let id = this.props.tweet.id_str;
+
+        if (!this.state.retweeted) {
+            console.log("Retweet is true");
+            tweetService.postRetweet(id)
+                .then(json => {
+                    console.log(json);
+                    this.setState({
+                        color: 'green',
+                    })
+                })
+                .catch(reason => {
+                    console.log(reason);
+                });
+
+        } else {
+            console.log("Retweet is false");
+            tweetService.unRetweet(id)
+                .then(json => {
+                    console.log(json);
+                    this.setState({
+                        color: 'red',
+                    })
+                })
+                .catch(reason => {
+                    console.log(reason);
+                });
+        }
+        this.setState({ retweeted: !this.state.retweeted });
+    }   
+
     render() {
         const tweet = this.props.tweet;
         const { checked } = this.state;
@@ -86,6 +120,8 @@ class Tweet extends PureComponent {
                         <CustomLIkeHeart checked={checked} onClick={this.onClick} style={{margin:'10px'}}></CustomLIkeHeart>
                         <a style={{margin:'10px'}}>{this.state.favCount}</a>
                         <button value="Delete" onClick={event => this.deleteTweet(tweet.id_str)}><i class="fa fa-trash-o" style={{"font-size":"30px","color":"red"}}></i></button> 
+                        &emsp;
+                        <button value="Retweet" onClick={event => this.retweet(tweet.id_str)}><i class="fa fa-retweet" style={{"font-size":"30px","color":"red"}}></i></button>
                     </Card.Footer>
                     {/* { <button value="Delete" onClick={event => this.deleteTweet(tweet.id_str)}>  Delete Tweet <i class="fa fa-trash-o" ></i></button> } */}
                 </Card>
